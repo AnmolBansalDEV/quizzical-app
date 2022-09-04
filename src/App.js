@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
-
+import React,{useState} from 'react';
+import Home from './components/Home';
+import blueBlob from "./assets/blue-blob.png"
+import yellowBlob from "./assets/yellow-blob.png"
+import Questions from './components/Questions';
 function App() {
+  const [showOverlay, setShowOverlay] = useState(true);
+
+  function toggleStart(){
+    setShowOverlay((prev)=>!prev);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <img className="blueBlob" src={blueBlob} alt='blue blob' />
+      <img className="yellowBlob" src={yellowBlob} alt='yellow blob' />
+     {showOverlay ? 
+     <Home toggle={toggleStart} /> 
+    :
+    <Questions />
+    }
+     
+     
     </div>
   );
 }
