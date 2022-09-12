@@ -1,9 +1,10 @@
 import React,{useState,useEffect} from "react";
+import { nanoid } from "nanoid";
 
 export default function Questions(){
     
     const [questionData, setQuestionData] = useState();
-    const [selectedAnswers, setSelectedAnswers] = useState({});
+    const [selectedAnswer, setSelectedAnswer] = useState(false);
 
     useEffect(
         ()=>{
@@ -12,15 +13,28 @@ export default function Questions(){
             .then(data => setQuestionData(data.results))
         },[]
     )
-
+    function handleClick(){
+        setSelectedAnswer(prev => !prev);
+    }
     let finalQuestons =  questionData && questionData.map(question => {
+        let questionOptions = [question.correct_answer, ...question.incorrect_answers];
+        let shuffledQuestionOptions = questionOptions.sort(()=> 0.5 - Math.random());
         return (
-            <div className="questions-container">
-            <h1>{question.question}</h1>
+            <div 
+                className="questions-container"
+                key={nanoid()}>
+            <h1>
+                {question.question}
+                </h1>
             <div className="options-container">
-            <button className="options">{question.correct_answer}</button>
-            {question.incorrect_answers.map(x => (
-                 <button className="options">{x}</button>
+            {shuffledQuestionOptions.map(x => (
+                 <button 
+                    key={nanoid()}
+                    className="options" 
+                    style={{backgroundColor: selectedAnswer ? "#D6DBF5" : "white"}}
+                    onClick={handleClick}>
+                        {x}
+                 </button>
                  ))}
             </div>
             <hr />
