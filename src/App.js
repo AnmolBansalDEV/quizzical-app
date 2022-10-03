@@ -3,7 +3,7 @@ import React,{useState} from 'react';
 import Home from './components/Home';
 import blueBlob from "./assets/blue-blob.png"
 import yellowBlob from "./assets/yellow-blob.png"
-import Questions from './components/Questions';
+import Questions from './components/QuestionsPage';
 function App() {
   const [showOverlay, setShowOverlay] = useState(true);
 
@@ -17,7 +17,7 @@ function App() {
      {showOverlay ? 
      <Home toggle={toggleStart} /> 
     :
-    <Questions />
+    <Questions toggle={toggleStart} />
     }
      
      
